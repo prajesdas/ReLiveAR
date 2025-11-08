@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+
+  <body>
+    <a-scene
+      mindar-image="imageTargetSrc: ./targets.mind;"
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+    >
+      <a-assets id="videoAssets"></a-assets>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <div id="targetsContainer"></div>
+    </a-scene>
+
+    <script>
+      async function initAR() {
+        // Load configuration file dynamically
+        const response = await fetch("config.json");
+        const config = await response.json();
+
+        const assetsContainer = document.getElementById("videoAssets");
+        const scene = document.querySelector("a-scene");
+
+        config.forEach((item) => {
+          const { targetIndex, videoSrc } = item;
+          const videoId = `video_${targetIndex}`;
+
+          // Create video asset
+          const video = document.createElement("video");
+          video.setAttribute("id", videoId);
+          video.setAttribute("src", videoSrc);
+          video.setAttribute("loop", true);
+          video.setAttribute("muted", true);
+          video.setAttribute("playsinline", true);
+          video.setAttribute("preload", "auto");
+          video.crossOrigin = "anonymous";
+          assetsContainer.appendChild(video);
+
+          // Create AR entity
+          const entity = document.createElement("a-entity");
+          entity.setAttribute("mindar-image-target", `targetIndex: ${targetIndex}`);
+
+          const videoPlane = document.createElement("a-video");
+          videoPlane.setAttribute("src", `#${videoId}`);
+          videoPlane.setAttribute("width", "1");
+          videoPlane.setAttribute("height", "0.5625");
+          videoPlane.setAttribute("position", "0 0 0");
+          videoPlane.setAttribute("rotation", "0 0 0");
+          videoPlane.setAttribute("visible", "false");
+
+          entity.appendChild(videoPlane);
+          scene.appendChild(entity);
+
+          // Set up event handlers
+          entity.addEventListener("targetFound", () => {
+            video.play();
+            videoPlane.setAttribute("visible", "true");
+          });
+
+          entity.addEventListener("targetLost", () => {
+            video.pause();
+            videoPlane.setAttribute("visible", "false");
+          });
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", initAR);
+    </script>
+  </body>
+</html>

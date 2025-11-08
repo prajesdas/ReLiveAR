@@ -1,0 +1,10 @@
+[
+  {
+    "targetIndex": 0,
+    "videoSrc": "media/video1.mp4"
+  },
+  {
+    "targetIndex": 1,
+    "videoSrc": "media/video2.mp4"
+  }
+]
