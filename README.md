@@ -101,6 +101,16 @@ Make sure `targetIndex` corresponds to the order of your image in the compiled `
 3. Point the camera at one of your uploaded poster images.
 4. Watch your **linked video** play over the marker in real-time!
 
+Click the link https://www.nit.ac.in/relivear/   and then scan this photo 
+
+![vj](https://github.com/user-attachments/assets/3253be30-838b-4123-ba0a-4dc9a7397cad)
+![vk2](https://github.com/user-attachments/assets/346e7df0-07dc-4fe8-b4d1-97a705cb0739)
+![dk](https://github.com/user-attachments/assets/02245ebf-b3e9-43ab-8815-ba884cd53361)
+![vk](https://github.com/user-attachments/assets/72f29742-41e4-4f81-a27d-4767367096c9)
+
+
+
+
 ---
 
 ## 🧑‍💻 Author
